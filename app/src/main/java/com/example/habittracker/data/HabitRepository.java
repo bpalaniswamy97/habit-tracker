@@ -60,4 +60,12 @@ public class HabitRepository {
     public LiveData<Integer> getCompletionCount(int habitId) {
         return habitDao.getCompletionCount(habitId);
     }
+
+    public LiveData<List<HabitCompletion>> getCompletionsForHabit(int habitId) {
+        return habitDao.getCompletionsForHabit(habitId);
+    }
+
+    public LiveData<List<HabitCompletion>> getAllCompletions() {
+        return habitDao.getAllCompletions();
+    }
 }

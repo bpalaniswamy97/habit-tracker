@@ -53,4 +53,12 @@ public class HabitViewModel extends AndroidViewModel {
     public LiveData<Integer> getCompletionCount(int habitId) {
         return repository.getCompletionCount(habitId);
     }
+
+    public LiveData<List<HabitCompletion>> getCompletionsForHabit(int habitId) {
+        return repository.getCompletionsForHabit(habitId);
+    }
+
+    public LiveData<List<HabitCompletion>> getAllCompletions() {
+        return repository.getAllCompletions();
+    }
 }

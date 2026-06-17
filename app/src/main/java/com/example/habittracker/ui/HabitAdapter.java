@@ -82,6 +82,12 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         void bind(Habit habit) {
             binding.textHabitName.setText(habit.getName());
             
+            if (habit.getReminderTime() != null && !habit.getReminderTime().isEmpty()) {
+                binding.textReminderTime.setVisibility(android.view.View.VISIBLE);
+                binding.textReminderTime.setText("🔔 " + habit.getReminderTime());
+            } else {
+                binding.textReminderTime.setVisibility(android.view.View.GONE);
+            }
             // Streak as total count
             viewModel.getCompletionCount(habit.getId()).observeForever(count -> {
                 binding.textStreak.setText(binding.getRoot().getContext().getString(

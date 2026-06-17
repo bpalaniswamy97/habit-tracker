@@ -25,17 +25,29 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Habit Name"
+            android:textColor="?attr/colorOnSurface"
             android:textAppearance="?attr/textAppearanceSubtitle1"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/text_streak"
             app:layout_constraintStart_toEndOf="@id/checkbox_done"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_reminder_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="08:00"
+            android:textSize="12sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:layout_constraintStart_toEndOf="@id/checkbox_done"
+            app:layout_constraintTop_toBottomOf="@id/text_habit_name" />
 
         <TextView
             android:id="@+id/text_streak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="🔥 0"
+            android:textColor="?attr/colorOnSurface"
             android:textAppearance="?attr/textAppearanceSubtitle2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

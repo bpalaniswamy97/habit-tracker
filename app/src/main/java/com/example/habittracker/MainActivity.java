@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setSupportActionBar(binding.toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment_content_main);
@@ -44,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
         if (navHostFragment != null) {
             NavController navController = navHostFragment.getNavController();
 
-            // Configure top bar with Home as a top-level destination
-            appBarConfiguration = new AppBarConfiguration.Builder(R.id.HomeFragment, R.id.HelpFragment).build();
+            // Configure top bar with top-level destinations
+            appBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.HomeFragment, R.id.ProgressFragment, R.id.FocusFragment, R.id.HelpFragment).build();
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             
             // Connect Bottom Navigation

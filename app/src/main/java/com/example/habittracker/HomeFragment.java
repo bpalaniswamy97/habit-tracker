@@ -68,21 +68,37 @@ public class HomeFragment extends Fragment {
             updateFilteredList(adapter, habits);
         });
 
-        setup7DayCalendar(adapter);
+        setupScrollableCalendar(adapter);
     }
 
-    private void setup7DayCalendar(HabitAdapter adapter) {
+    private void setupScrollableCalendar(HabitAdapter adapter) {
         binding.calendarContainer.removeAllViews();
         dateViews.clear();
 
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR, -6);
+        long todayMillis = getStartOfDay(cal.getTimeInMillis());
+        
+        // Start from 14 days ago
+        cal.add(Calendar.DAY_OF_YEAR, -14);
 
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE", Locale.getDefault());
         SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.getDefault());
 
-        for (int i = 0; i < 7; i++) {
+        // Calculate item width to show exactly 7 days
+        int screenWidth = getResources().getDisplayMetrics().widthPixels;
+        int padding = (int) (8 * getResources().getDisplayMetrics().density * 2); // scroll_calendar padding
+        int itemWidth = (screenWidth - padding) / 7;
+
+        int todayIndex = -1;
+
+        for (int i = 0; i < 29; i++) {
             View dateView = getLayoutInflater().inflate(R.layout.item_date, binding.calendarContainer, false);
+            
+            // Set fixed width
+            ViewGroup.LayoutParams lp = dateView.getLayoutParams();
+            lp.width = itemWidth;
+            dateView.setLayoutParams(lp);
+
             TextView textDay = dateView.findViewById(R.id.text_day);
             TextView textDate = dateView.findViewById(R.id.text_date);
 
@@ -91,6 +107,10 @@ public class HomeFragment extends Fragment {
 
             long dateMillis = getStartOfDay(cal.getTimeInMillis());
             dateView.setTag(dateMillis);
+
+            if (dateMillis == todayMillis) {
+                todayIndex = i;
+            }
 
             dateView.setOnClickListener(v -> {
                 selectedDateMillis = (long) v.getTag();
@@ -106,6 +126,16 @@ public class HomeFragment extends Fragment {
 
         updateSelectedDateUI();
         observeCompletions(adapter);
+
+        // Center on Today
+        if (todayIndex != -1) {
+            final int scrollToIndex = todayIndex;
+            binding.scrollCalendar.post(() -> {
+                // Scroll so that today is in the middle (index 3 of the 7 visible ones)
+                int scrollX = (scrollToIndex - 3) * itemWidth;
+                binding.scrollCalendar.scrollTo(scrollX, 0);
+            });
+        }
     }
 
     private void updateFilteredList(HabitAdapter adapter, List<Habit> allHabits) {
@@ -155,6 +185,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateSelectedDateUI() {
+        int colorOnPrimary = ContextCompat.getColor(requireContext(), android.R.color.white);
+        
+        // Fetch theme colors
+        android.util.TypedValue typedValue = new android.util.TypedValue();
+        requireContext().getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValue, true);
+        int colorOnSurface = typedValue.data;
+        
+        requireContext().getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurfaceVariant, typedValue, true);
+        int colorOnSurfaceVariant = typedValue.data;
+
         for (View view : dateViews) {
             long dateMillis = (long) view.getTag();
             TextView textDay = view.findViewById(R.id.text_day);
@@ -162,12 +202,12 @@ public class HomeFragment extends Fragment {
 
             if (dateMillis == selectedDateMillis) {
                 view.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_date_selected));
-                textDay.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
-                textDate.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
+                textDay.setTextColor(colorOnPrimary);
+                textDate.setTextColor(colorOnPrimary);
             } else {
                 view.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_date_unselected));
-                textDay.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.darker_gray));
-                textDate.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
+                textDay.setTextColor(colorOnSurfaceVariant);
+                textDate.setTextColor(colorOnSurface);
             }
         }
     }

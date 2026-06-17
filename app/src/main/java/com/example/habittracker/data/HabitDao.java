@@ -40,5 +40,8 @@ public interface HabitDao {
     LiveData<Integer> getCompletionCount(int habitId);
 
     @Query("SELECT * FROM habit_completions WHERE habitId = :habitId ORDER BY date DESC")
-    List<HabitCompletion> getCompletionsForHabit(int habitId);
+    LiveData<List<HabitCompletion>> getCompletionsForHabit(int habitId);
+
+    @Query("SELECT * FROM habit_completions")
+    LiveData<List<HabitCompletion>> getAllCompletions();
 }

@@ -2,8 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/HomeFragment"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@android:drawable/ic_menu_agenda"
         android:title="Home" />
+    <item
+        android:id="@+id/ProgressFragment"
+        android:icon="@android:drawable/ic_menu_report_image"
+        android:title="Progress" />
+    <item
+        android:id="@+id/FocusFragment"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="Focus" />
     <item
         android:id="@+id/HelpFragment"
         android:icon="@android:drawable/ic_menu_help"
