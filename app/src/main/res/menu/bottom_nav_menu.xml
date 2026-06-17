@@ -5,6 +5,10 @@
         android:icon="@android:drawable/ic_dialog_map"
         android:title="Home" />
     <item
+        android:id="@+id/ProgressFragment"
+        android:icon="@android:drawable/ic_menu_report_image"
+        android:title="Progress" />
+    <item
         android:id="@+id/HelpFragment"
         android:icon="@android:drawable/ic_menu_help"
         android:title="Help" />

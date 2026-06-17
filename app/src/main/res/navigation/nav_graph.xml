@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_help" />
 
     <fragment
+        android:id="@+id/ProgressFragment"
+        android:name="com.example.habittracker.ui.ProgressFragment"
+        android:label="Progress"
+        tools:layout="@layout/fragment_progress" />
+
+    <fragment
         android:id="@+id/AddHabitFragment"
         android:name="com.example.habittracker.ui.AddHabitFragment"
         android:label="Add New Habit"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Habit Tracker</string>
+    <string name="app_name">Track your habits</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Habits</string>
