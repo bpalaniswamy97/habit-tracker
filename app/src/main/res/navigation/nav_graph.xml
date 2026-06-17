@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_progress" />
 
     <fragment
+        android:id="@+id/FocusFragment"
+        android:name="com.example.habittracker.ui.FocusFragment"
+        android:label="Focus"
+        tools:layout="@layout/fragment_focus" />
+
+    <fragment
         android:id="@+id/AddHabitFragment"
         android:name="com.example.habittracker.ui.AddHabitFragment"
         android:label="Add New Habit"

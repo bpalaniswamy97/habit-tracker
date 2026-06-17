@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
             NavController navController = navHostFragment.getNavController();
 
             // Configure top bar with top-level destinations
-            appBarConfiguration = new AppBarConfiguration.Builder(R.id.HomeFragment, R.id.ProgressFragment, R.id.HelpFragment).build();
+            appBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.HomeFragment, R.id.ProgressFragment, R.id.FocusFragment, R.id.HelpFragment).build();
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             
             // Connect Bottom Navigation
