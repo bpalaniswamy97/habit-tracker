@@ -14,6 +14,7 @@ public class Habit {
     private boolean isRemindMeEnabled;
     private boolean isMuteNotificationEnabled;
     private long startDate;
+    private String reminderSoundUri;
 
     public Habit(String name, String frequency, String reminderTime) {
         this.name = name;
@@ -23,6 +24,7 @@ public class Habit {
         this.isRemindMeEnabled = false;
         this.isMuteNotificationEnabled = false;
         this.startDate = System.currentTimeMillis();
+        this.reminderSoundUri = null;
     }
 
     // Copy constructor
@@ -35,6 +37,7 @@ public class Habit {
         this.isRemindMeEnabled = other.isRemindMeEnabled;
         this.isMuteNotificationEnabled = other.isMuteNotificationEnabled;
         this.startDate = other.startDate;
+        this.reminderSoundUri = other.reminderSoundUri;
     }
 
     // Getters and Setters
@@ -54,4 +57,6 @@ public class Habit {
     public void setMuteNotificationEnabled(boolean muteNotificationEnabled) { isMuteNotificationEnabled = muteNotificationEnabled; }
     public long getStartDate() { return startDate; }
     public void setStartDate(long startDate) { this.startDate = startDate; }
+    public String getReminderSoundUri() { return reminderSoundUri; }
+    public void setReminderSoundUri(String reminderSoundUri) { this.reminderSoundUri = reminderSoundUri; }
 }
