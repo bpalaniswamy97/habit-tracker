@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.habittracker.data.Habit;
 import com.example.habittracker.data.HabitCompletion;
 import com.example.habittracker.databinding.FragmentProgressBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,6 +41,7 @@ public class ProgressFragment extends Fragment {
 
         habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
         adapter = new ProgressAdapter();
+        adapter.setOnHabitDeleteListener(this::showDeleteConfirmation);
 
         binding.progressRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.progressRecyclerView.setAdapter(adapter);
@@ -56,6 +59,23 @@ public class ProgressFragment extends Fragment {
             }
             adapter.setCompletions(completionMap);
         });
+    }
+
+    private void showDeleteConfirmation(Habit habit) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Remove from Progress Bar?")
+                .setMessage("Do you also want to remove the habit history?")
+                .setPositiveButton("Remove Habit & History", (dialog, which) -> {
+                    habit.setHiddenFromProgress(true);
+                    habitViewModel.update(habit);
+                    habitViewModel.deleteCompletionsByHabitId(habit.getId());
+                })
+                .setNeutralButton("Remove Habit Only", (dialog, which) -> {
+                    habit.setHiddenFromProgress(true);
+                    habitViewModel.update(habit);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     @Override

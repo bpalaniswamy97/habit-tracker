@@ -15,15 +15,21 @@ import java.util.List;
 public class HabitViewModel extends AndroidViewModel {
     private final HabitRepository repository;
     private final LiveData<List<Habit>> allHabits;
+    private final LiveData<List<Habit>> activeHabits;
 
     public HabitViewModel(@NonNull Application application) {
         super(application);
         repository = new HabitRepository(application);
         allHabits = repository.getAllHabits();
+        activeHabits = repository.getActiveHabits();
     }
 
     public LiveData<List<Habit>> getAllHabits() {
         return allHabits;
+    }
+
+    public LiveData<List<Habit>> getActiveHabits() {
+        return activeHabits;
     }
 
     public void insert(Habit habit, HabitRepository.InsertCallback callback) {
@@ -36,6 +42,10 @@ public class HabitViewModel extends AndroidViewModel {
 
     public void delete(Habit habit) {
         repository.delete(habit);
+    }
+
+    public void deleteCompletionsByHabitId(int habitId) {
+        repository.deleteCompletionsByHabitId(habitId);
     }
 
     public LiveData<List<Integer>> getCompletedHabitIdsForDate(long date) {

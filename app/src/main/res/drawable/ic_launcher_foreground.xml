@@ -3,11 +3,20 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- Outer Circle Badge -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M30,50 L45,65 L78,32"
-        android:strokeWidth="8"
         android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:pathData="M 54, 24 a 30,30 0 1,1 0,60 a 30,30 0 1,1 0,-60"
+        android:strokeLineCap="round" />
+
+    <!-- Stylized Checkmark -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="8"
+        android:pathData="M38,54 L48,64 L70,42"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
+
 </vector>

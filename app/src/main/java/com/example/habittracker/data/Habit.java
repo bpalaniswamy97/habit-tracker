@@ -15,6 +15,8 @@ public class Habit {
     private boolean isMuteNotificationEnabled;
     private long startDate;
     private String reminderSoundUri;
+    private boolean isArchived;
+    private boolean isHiddenFromProgress;
 
     public Habit(String name, String frequency, String reminderTime) {
         this.name = name;
@@ -25,6 +27,8 @@ public class Habit {
         this.isMuteNotificationEnabled = false;
         this.startDate = System.currentTimeMillis();
         this.reminderSoundUri = null;
+        this.isArchived = false;
+        this.isHiddenFromProgress = false;
     }
 
     // Copy constructor
@@ -38,6 +42,8 @@ public class Habit {
         this.isMuteNotificationEnabled = other.isMuteNotificationEnabled;
         this.startDate = other.startDate;
         this.reminderSoundUri = other.reminderSoundUri;
+        this.isArchived = other.isArchived;
+        this.isHiddenFromProgress = other.isHiddenFromProgress;
     }
 
     // Getters and Setters
@@ -59,4 +65,8 @@ public class Habit {
     public void setStartDate(long startDate) { this.startDate = startDate; }
     public String getReminderSoundUri() { return reminderSoundUri; }
     public void setReminderSoundUri(String reminderSoundUri) { this.reminderSoundUri = reminderSoundUri; }
+    public boolean isArchived() { return isArchived; }
+    public void setArchived(boolean archived) { isArchived = archived; }
+    public boolean isHiddenFromProgress() { return isHiddenFromProgress; }
+    public void setHiddenFromProgress(boolean hiddenFromProgress) { isHiddenFromProgress = hiddenFromProgress; }
 }

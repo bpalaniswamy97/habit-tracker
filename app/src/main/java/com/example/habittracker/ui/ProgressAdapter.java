@@ -21,9 +21,18 @@ import java.util.Set;
 public class ProgressAdapter extends ListAdapter<Habit, ProgressAdapter.ProgressViewHolder> {
 
     private Map<Integer, Set<Long>> habitCompletions = new HashMap<>();
+    private OnHabitDeleteListener deleteListener;
+
+    public interface OnHabitDeleteListener {
+        void onDeleteRequested(Habit habit);
+    }
 
     public ProgressAdapter() {
         super(DIFF_CALLBACK);
+    }
+
+    public void setOnHabitDeleteListener(OnHabitDeleteListener listener) {
+        this.deleteListener = listener;
     }
 
     public void setCompletions(Map<Integer, Set<Long>> completions) {
@@ -42,7 +51,7 @@ public class ProgressAdapter extends ListAdapter<Habit, ProgressAdapter.Progress
     @Override
     public void onBindViewHolder(@NonNull ProgressViewHolder holder, int position) {
         Habit habit = getItem(position);
-        holder.bind(habit, habitCompletions.getOrDefault(habit.getId(), new HashSet<>()));
+        holder.bind(habit, habitCompletions.getOrDefault(habit.getId(), new HashSet<>()), deleteListener);
     }
 
     static class ProgressViewHolder extends RecyclerView.ViewHolder {
@@ -53,10 +62,15 @@ public class ProgressAdapter extends ListAdapter<Habit, ProgressAdapter.Progress
             this.binding = binding;
         }
 
-        void bind(Habit habit, Set<Long> completions) {
+        void bind(Habit habit, Set<Long> completions, OnHabitDeleteListener listener) {
             binding.habitName.setText(habit.getName());
             binding.habitStats.setText("Total completions: " + completions.size());
             binding.heatmapView.setCompletions(completions);
+            binding.buttonDeleteProgress.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onDeleteRequested(habit);
+                }
+            });
         }
     }
 

@@ -66,7 +66,10 @@ public class AddHabitFragment extends Fragment {
                 editingHabit = com.example.habittracker.data.AppDatabase.getDatabase(requireContext())
                         .habitDao().getHabitById(habitId);
                 if (editingHabit != null) {
-                    requireActivity().runOnUiThread(() -> populateFields(editingHabit));
+                    requireActivity().runOnUiThread(() -> {
+                        populateFields(editingHabit);
+                        binding.buttonRemoveRoutine.setVisibility(View.VISIBLE);
+                    });
                 }
             }).start();
         }
@@ -90,6 +93,17 @@ public class AddHabitFragment extends Fragment {
         });
 
         binding.buttonSave.setOnClickListener(v -> saveHabit());
+
+        binding.buttonRemoveRoutine.setOnClickListener(v -> removeFromRoutine());
+    }
+
+    private void removeFromRoutine() {
+        if (editingHabit != null) {
+            editingHabit.setArchived(true);
+            habitViewModel.update(editingHabit);
+            Toast.makeText(getContext(), "Habit removed from daily routine", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(AddHabitFragment.this).navigateUp();
+        }
     }
 
     private void updateSoundText(Uri uri) {

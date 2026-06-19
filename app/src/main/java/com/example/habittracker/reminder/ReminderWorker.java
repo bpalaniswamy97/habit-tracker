@@ -59,6 +59,7 @@ public class ReminderWorker extends Worker {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                     "Habit Reminders", NotificationManager.IMPORTANCE_HIGH);
             channel.enableVibration(true);
+            channel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             notificationManager.createNotificationChannel(channel);
         }
 
@@ -69,6 +70,7 @@ public class ReminderWorker extends Worker {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setFullScreenIntent(fullScreenIntent, true)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setAutoCancel(true);
 
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());
@@ -84,6 +86,7 @@ public class ReminderWorker extends Worker {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                     "Habit Reminders", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
             notificationManager.createNotificationChannel(channel);
         }
 
@@ -92,6 +95,7 @@ public class ReminderWorker extends Worker {
                 .setContentTitle("Habit Reminder")
                 .setContentText("Don't forget to: " + habitName)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setAutoCancel(true);
 
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());

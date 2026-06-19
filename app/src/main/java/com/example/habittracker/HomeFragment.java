@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
 
         binding.recyclerViewHabits.setAdapter(adapter);
 
-        habitViewModel.getAllHabits().observe(getViewLifecycleOwner(), habits -> {
+        habitViewModel.getActiveHabits().observe(getViewLifecycleOwner(), habits -> {
             updateFilteredList(adapter, habits);
         });
 

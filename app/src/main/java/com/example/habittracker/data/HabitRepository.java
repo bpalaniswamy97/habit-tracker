@@ -24,6 +24,10 @@ public class HabitRepository {
         return allHabits;
     }
 
+    public LiveData<List<Habit>> getActiveHabits() {
+        return habitDao.getActiveHabits();
+    }
+
     public interface InsertCallback {
         void onInserted(long id);
     }
@@ -43,6 +47,10 @@ public class HabitRepository {
 
     public void delete(Habit habit) {
         executorService.execute(() -> habitDao.delete(habit));
+    }
+
+    public void deleteCompletionsByHabitId(int habitId) {
+        executorService.execute(() -> habitDao.deleteCompletionsByHabitId(habitId));
     }
 
     public LiveData<List<Integer>> getCompletedHabitIdsForDate(long date) {

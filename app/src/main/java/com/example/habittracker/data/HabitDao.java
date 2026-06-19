@@ -20,8 +20,11 @@ public interface HabitDao {
     @Delete
     void delete(Habit habit);
 
-    @Query("SELECT * FROM habits ORDER BY id DESC")
+    @Query("SELECT * FROM habits WHERE isHiddenFromProgress = 0 ORDER BY id DESC")
     LiveData<List<Habit>> getAllHabits();
+
+    @Query("SELECT * FROM habits WHERE isArchived = 0 AND isHiddenFromProgress = 0 ORDER BY id DESC")
+    LiveData<List<Habit>> getActiveHabits();
 
     @Query("SELECT * FROM habits WHERE id = :id")
     Habit getHabitById(int id);
@@ -29,6 +32,9 @@ public interface HabitDao {
     // Completion operations
     @Insert
     void insertCompletion(HabitCompletion completion);
+
+    @Query("DELETE FROM habit_completions WHERE habitId = :habitId")
+    void deleteCompletionsByHabitId(int habitId);
 
     @Query("DELETE FROM habit_completions WHERE habitId = :habitId AND date = :date")
     void deleteCompletion(int habitId, long date);
@@ -44,4 +50,10 @@ public interface HabitDao {
 
     @Query("SELECT * FROM habit_completions")
     LiveData<List<HabitCompletion>> getAllCompletions();
+
+    @Query("SELECT * FROM habits")
+    List<Habit> getAllHabitsSync();
+
+    @Query("SELECT * FROM habit_completions")
+    List<HabitCompletion> getAllCompletionsSync();
 }
